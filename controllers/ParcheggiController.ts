@@ -18,4 +18,9 @@ export class ParcheggiController
     {
         return this.getAll().length; // restituisce la lunghezza quindi il numero di veicoli       
     }
+
+    addVeicolo(targa  : string) : boolean
+    {
+        return true;
+    }
 }
