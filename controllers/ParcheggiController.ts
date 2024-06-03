@@ -19,8 +19,14 @@ export class ParcheggiController
         return this.getAll().length; // restituisce la lunghezza quindi il numero di veicoli       
     }
 
-    addVeicolo(targa  : string) : boolean
-    {
-        return true;
+    addVeicolo(targa: string): boolean {
+        if (this.db.Parcheggio.Veicoli.some(t => t.targa == targa)) {
+            return false;
+        } else {
+    
+            this.db.Parcheggio.Veicoli.push(new Veicolo(targa));
+            return true;
+        }
     }
+    
 }
