@@ -1,36 +1,32 @@
-import * as rl from 'readline-sync'
-import { ParcheggiController } from '../controllers/ParcheggiController'
+import * as rl from 'readline-sync';
+import { ParcheggiController } from '../controllers/ParcheggiController';
 
-export class MainMenuView
-{
-    static show() : void
-    {
+export class MainMenuView {
+    static show(): void {
         let controller = new ParcheggiController();
-        let scelta : number = 0;
-        
-        do
-        {
+        let scelta: number = 0;
+
+        do {
             console.log('Gestione Parcheggio acme.ink');
             console.log('----------');
-            console.log('');
             console.log('1 - Elenco veicoli');
             console.log('2 - Numero Veicoli presenti');
             console.log('3 - Aggiungi Veicolo');
             console.log('4 - Rimuovi Veicolo');
-            console.log('9 - Esci');
+            console.log('5 - Ricerca Veicolo');
+            console.log('6 - Esci');
             console.log('');
-    
-            scelta = rl.questionInt('Inserisci la scelta: '); 
 
-            switch(scelta)
-            {
+            scelta = rl.questionInt('Inserisci la scelta: ');
+
+            switch (scelta) {
                 case 1:
                     controller.getAll().forEach(v => console.log(`${v.targa} - Entrato: ${v.ingresso}`));
-                    console.log('----------');                    
+                    console.log('----------');
                     break;
                 case 2:
                     console.log(`Sono presenti ${controller.getNumber()} veicoli`);
-                    console.log('----------');                    
+                    console.log('----------');
                     break;
                 case 3:
                     let targaAggiungi = rl.question('Inserisci la targa del veicolo: ');
@@ -44,7 +40,7 @@ export class MainMenuView
                     break;
                 case 4:
                     let targaRimuovi = rl.question('Inserisci la targa del veicolo da rimuovere: ');
-                    console.log('')
+                    console.log('');
                     const importo = controller.removeVeicolo(targaRimuovi);
                     if (importo !== null) {
                         console.log(`Veicolo rimosso con successo. Importo da pagare: €${importo}`);
@@ -54,12 +50,23 @@ export class MainMenuView
                         console.log('----------');
                     }
                     break;
-                case 9:
+                case 5:
+                    let targaRicerca = rl.question('Inserisci la targa del veicolo da ricercare: ');
+                    const veicolo = controller.searchVeicolo(targaRicerca);
+                    if (veicolo !== null) {
+                        console.log(`Veicolo trovato: ${veicolo.targa} - Entrato: ${veicolo.ingresso}`);
+                        console.log('----------');
+                    } else {
+                        console.log('Errore: veicolo non trovato');
+                        console.log('----------');
+                    }
+                    break;
+                case 6:
                     break;
                 default:
                     console.log('Inserisci un numero valido');
                     console.log('----------');
             }
-        } while (scelta != 9);
+        } while (scelta != 6);
     }
 }
