@@ -10,7 +10,7 @@ export class MainMenuView
         let scelta : number = 0
         do
         {
-            console.log('Gestione Parcheggio')
+            console.log('Gestione Parcheggio acme.ink')
             console.log('----------')
             console.log('')
             console.log('1 - Elenco veicoli')
